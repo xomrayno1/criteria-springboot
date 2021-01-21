@@ -17,4 +17,5 @@ public interface ProductDAO {
 	List<Product> getProductByNameLikeCatePrice(String name, int cateId,double startPrice, double endPrice);
 	List<Object[]> getNameAndPrice();
 	List<ProductModel> getNameAndPriceByProductModel();
+	List<Object[]> staticsProductCountByCategory();
 }

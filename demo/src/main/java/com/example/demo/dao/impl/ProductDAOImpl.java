@@ -156,7 +156,7 @@ public class ProductDAOImpl implements ProductDAO{
 		return null;
 	}
 
-	@Override //  get nhiều điều kiện
+	@Override //  get nhiều điều kiện, order by
 	public List<Product> getProductByNameLikeCatePrice(String name, int cateId, double startPrice, double endPrice) {
 		// TODO Auto-generated method stub
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -204,6 +204,27 @@ public class ProductDAOImpl implements ProductDAO{
 		} catch (Exception e) {
 			// TODO: handle exception
 			log.warn("get name and price product error : "+e.getMessage());
+		}finally {
+			entityManager.close();
+		}
+		return null;
+	}
+
+	
+	//select sum(id) as count , name where category_id = ? group by id, name
+	@Override // thống kê số lượng sản phẩm theo danh mục , group by
+	public List<Object[]> staticsProductCountByCategory() {
+		// TODO Auto-generated method stub
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		try {
+			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+			CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+			Root<Product> root = query.from(Product.class);
+			query.multiselect(root.get("category"), builder.count(root)).groupBy(root.get("category"));
+			return entityManager.createQuery(query).getResultList();
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.warn("statics product count by category error : "+e.getMessage());
 		}finally {
 			entityManager.close();
 		}

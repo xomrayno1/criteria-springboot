@@ -44,6 +44,9 @@ public class ProductService {
 	public List<Product> getProductByNameLikeCatePrice(String name, int cateId, double startPrice, double endPrice) {
 		return	productDAO.getProductByNameLikeCatePrice(name, cateId, startPrice, endPrice);
 	}
+	public List<Object[]> staticsProductCountByCategory() {
+		 return productDAO.staticsProductCountByCategory();
+	}
 	
 	
 }

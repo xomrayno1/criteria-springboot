@@ -11,7 +11,12 @@ import com.example.demo.entity.Category;
 import com.example.demo.entity.Product;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
-
+// fix loi can not  Error: Could not find or load main class spring boot
+/* 
+ * <properties>
+    <start-class>com.bt.collab.alu.api.webapp.Application</start-class>
+	</properties>
+ */
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner{
 	@Autowired
@@ -77,6 +82,22 @@ public class DemoApplication implements CommandLineRunner{
 					.forEach(System.out::println);
 		
 
+		System.out.println("Thống kê số lượng theo category");
+		List<Object[]> objects = 
+				productService.staticsProductCountByCategory();
+		 
+		if(objects != null) {
+			System.out.println("objects != null");
+		}else {
+			System.out.println("null");
+		}
+	
+		if(objects != null) {
+			 
+			for (Object[] item : objects) {
+				System.out.println(item[0] +"___________"+item[1]);
+			}
+		}
 	}
 	
 
